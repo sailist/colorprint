@@ -86,3 +86,5 @@ def uprint(value,fore=None,back = None,mode = None,end="",handle = "stdout",flus
         cprint(value=value, fore=fore, back=back, end=end, handle=handle, flush=flush)
     else:
         eprint(value=value,fore=fore,back=back,mode=mode,end=end,handle=handle,flush=flush)
+
+    return uprint
