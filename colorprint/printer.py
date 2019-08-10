@@ -81,7 +81,25 @@ def eprint(value,fore=None,back = None,mode = None,end="",handle = "stdout",flus
 
 
 
-def uprint(value,fore=None,back = None,mode = None,end="",handle = "stdout",flush = True):
+def uprint(value,
+           fore=None,
+           back = None,
+           mode = None,
+           end="",
+           handle = "stdout",
+           flush = True):
+    '''
+    Prints the colored values to sys.stdout or sys.stderr.
+    :param fore:
+    :param back:
+    :param mode:
+    :param end: string appended after the last value, default a newline.
+    :param handle: str, "stdout" or "stderr"
+        note:the stderr haven't be tested.
+    :param flush: whether to forcibly flush the stream.
+    :return: uprint method, you can use
+        uprint()()()() to output strings with diff color.
+    '''
     if in_win() and in_terminal():
         cprint(value=value, fore=fore, back=back, end=end, handle=handle, flush=flush)
     else:

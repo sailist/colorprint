@@ -6,12 +6,12 @@ def printall():
 
 def printmode():
     print("Show Mode:")
-    uprint("MODE_NORMAL\n", mode=MODE_NORMAL)
-    uprint("MODE_BLINK\n", mode=MODE_BLINK)
-    uprint("MODE_BOLD\n", mode=MODE_BOLD)
-    uprint("MODE_HIDE\n", mode=MODE_HIDE)
-    uprint("MODE_INVERT\n", mode=MODE_INVERT)
-    uprint("MODE_UNDERLINE\n", mode=MODE_UNDERLINE)
+    uprint("MODE_NORMAL\n", mode=MODE_NORMAL)\
+        ("MODE_BLINK\n", mode=MODE_BLINK)\
+        ("MODE_BOLD\n", mode=MODE_BOLD)\
+        ("MODE_HIDE\n", mode=MODE_HIDE)\
+        ("MODE_INVERT\n", mode=MODE_INVERT)\
+        ("MODE_UNDERLINE\n", mode=MODE_UNDERLINE)
 
 def printfore():
     print("Show foreground color.")
