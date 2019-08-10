@@ -37,16 +37,9 @@ def in_terminal():
 def in_win():
     return sys.platform == "win32"
 
-def cprint(value,fore=None,back=None,end="",handle = "stdout",flush = True):
-    '''
-    Prints the values to sys.stdout or sys.stderr.
-    :param color:look the document or unicolor.py
-        Foreground color and Background color can use 'or' operating
-    :param end:
-    :param handle: string, use "stdout" or "stderr", default "stdout"
-    :param flush: default True, if False, the color will be the final color you set.
-    :return:
-    '''
+def cprint(*args,fore=None,back=None,sep=" ",end="",handle = "stdout",flush = True):
+    value = sep.join(*args)
+
     if fore is None and back is None:
         reset_color()
     elif back is None:
@@ -56,8 +49,6 @@ def cprint(value,fore=None,back=None,end="",handle = "stdout",flush = True):
     else:
         set_cmd_text_color(fore|back)
 
-
-
     sys.stdout.write(str(value))
 
     if flush:
@@ -66,7 +57,9 @@ def cprint(value,fore=None,back=None,end="",handle = "stdout",flush = True):
     reset_color()
     return cprint
 
-def eprint(value,fore=None,back = None,mode = None,end="",handle = "stdout",flush = True):
+def eprint(*args,fore=None,back = None,mode = None,sep=" ",end="",handle = "stdout",flush = True):
+    value = sep.join(*args)
+
     if mode is None:
         mode = MODE_NORMAL
     if fore is None and back is None:
@@ -81,28 +74,44 @@ def eprint(value,fore=None,back = None,mode = None,end="",handle = "stdout",flus
 
 
 
-def uprint(value,
+def uprint(*args,
            fore=None,
            back = None,
            mode = None,
+           sep=" ",
            end="",
            handle = "stdout",
-           flush = True):
+           flush = True,
+           continuous = True):
     '''
     Prints the colored values to sys.stdout or sys.stderr.
     :param fore:
     :param back:
     :param mode:
+    :param sep: string inserted between values, default a space.
     :param end: string appended after the last value, default a newline.
     :param handle: str, "stdout" or "stderr"
         note:the stderr haven't be tested.
     :param flush: whether to forcibly flush the stream.
+    :param continuous: default True, if True, the return value will be a lambda method wrapped the uprint mathod
+                and the options.
     :return: uprint method, you can use
         uprint()()()() to output strings with diff color.
     '''
+    args = [str(i) for i in args]
     if in_win() and in_terminal():
-        cprint(value=value, fore=fore, back=back, end=end, handle=handle, flush=flush)
+        cprint(args, fore=fore, back=back,sep=sep,end=end, handle=handle, flush=flush)
     else:
-        eprint(value=value,fore=fore,back=back,mode=mode,end=end,handle=handle,flush=flush)
+        eprint(args,fore=fore,back=back,mode=mode,sep=sep,end=end,handle=handle,flush=flush)
 
-    return uprint
+    if continuous:
+        return lambda x:uprint(x,fore=fore,
+                                   back = back,
+                                   mode = mode,
+                                   sep=sep,
+                                   end=end,
+                                   handle = handle,
+                                   flush = flush,
+                                   continuous = continuous)
+    else:
+        return uprint

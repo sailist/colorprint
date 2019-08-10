@@ -1,17 +1,18 @@
 from colorprint.printer import uprint
 from colorprint.unicolor import *
 def printall():
+    printmode()
     printfore()
     printback()
 
 def printmode():
     print("Show Mode:")
     uprint("MODE_NORMAL\n", mode=MODE_NORMAL)\
-        ("MODE_BLINK\n", mode=MODE_BLINK)\
-        ("MODE_BOLD\n", mode=MODE_BOLD)\
-        ("MODE_HIDE\n", mode=MODE_HIDE)\
-        ("MODE_INVERT\n", mode=MODE_INVERT)\
-        ("MODE_UNDERLINE\n", mode=MODE_UNDERLINE)
+        ("MODE_BLINK\n")\
+        ("MODE_BOLD\n")\
+        ("MODE_HIDE\n")\
+        ("MODE_INVERT\n")\
+        ("MODE_UNDERLINE\n")
 
 def printfore():
     print("Show foreground color.")
