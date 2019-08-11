@@ -9,17 +9,17 @@ if sys.platform == "win32" and sys.stdin.isatty():
     STD_ERROR_HANDLE = -12
     std_out_handle = ctypes.windll.kernel32.GetStdHandle(STD_OUTPUT_HANDLE)
     std_err_handle = ctypes.windll.kernel32.GetStdHandle(STD_ERROR_HANDLE)
-    _handle_dict = dict(
-        stdout=std_out_handle,
-        stderr=std_err_handle
-    )
+    # _handle_dict = dict(
+    #     stdout=std_out_handle,
+    #     stderr=std_err_handle
+    # )
 else:
     std_out_handle = sys.stdout
     std_err_handle = sys.stderr
-    _handle_dict = dict(
-        stdout=sys.stdout,
-        stderr=sys.stderr
-    )
+_handle_dict = dict(
+    stdout=sys.stdout,
+    stderr=sys.stderr
+)
 
 def set_cmd_text_color(color, handle=std_out_handle):
     Bool = ctypes.windll.kernel32.SetConsoleTextAttribute(handle, color)
@@ -49,10 +49,10 @@ def cprint(*args,fore=None,back=None,sep=" ",end="",handle = "stdout",flush = Tr
     else:
         set_cmd_text_color(fore|back)
 
-    sys.stdout.write(str(value))
-
-    if flush:
-        sys.stdout.flush()
+    print(value,end=end,file=_handle_dict[handle],flush=flush)
+    # sys.stdout.write(str(value))
+    # if flush:
+    #     sys.stdout.flush()
 
     reset_color()
     return cprint
@@ -81,8 +81,7 @@ def uprint(*args,
            sep=" ",
            end="",
            handle = "stdout",
-           flush = True,
-           continuous = True):
+           flush = True,):
     '''
     Prints the colored values to sys.stdout or sys.stderr.
     :param fore:
@@ -104,14 +103,14 @@ def uprint(*args,
     else:
         eprint(args,fore=fore,back=back,mode=mode,sep=sep,end=end,handle=handle,flush=flush)
 
-    if continuous:
-        return lambda x:uprint(x,fore=fore,
-                                   back = back,
-                                   mode = mode,
-                                   sep=sep,
-                                   end=end,
-                                   handle = handle,
-                                   flush = flush,
-                                   continuous = continuous)
-    else:
-        return uprint
+    def extendprint(*args,
+           fore=fore,
+           back = back,
+           mode = mode,
+           sep=sep,
+           end=end,
+           handle = handle,
+           flush = flush):
+        return uprint(*args,fore=fore,back=back,mode=mode,sep=sep,end=end,handle=handle,flush=flush)
+
+    return extendprint
