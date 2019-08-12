@@ -2,7 +2,7 @@ from setuptools import setup,find_packages
 
 setup(
     name='sailist',
-    version='0.4.dev1',
+    version='0.5.dev1',
     description='convert markdown 2 latex code perfactly,support Chinese Language',
     url='https://github.com/sailist/colorprint',
     author='sailist',

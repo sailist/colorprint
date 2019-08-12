@@ -17,6 +17,8 @@ if sys.platform == "win32" and sys.stdin.isatty():
     FOREGROUND_PINK = 0x0d  # pink.
     FOREGROUND_YELLOW = 0x0e  # yellow.
     FOREGROUND_WHITE = 0x0f  # white.
+    FOREGROUND_PURPLE = FOREGROUND_PINK
+    FOREGROUND_CYAN = FOREGROUND_PINK
 
     BACKGROUND_BLACK = 0x00
     BACKGROUND_DARKBLUE = 0x10  # dark blue.
@@ -34,6 +36,8 @@ if sys.platform == "win32" and sys.stdin.isatty():
     BACKGROUND_PINK = 0xd0  # pink.
     BACKGROUND_YELLOW = 0xe0  # yellow.
     BACKGROUND_WHITE = 0xf0  # white.
+    BACKGROUND_PURPLE = BACKGROUND_PINK
+    BACKGROUND_CYAN = BACKGROUND_PINK
 else:
     FOREGROUND_BLACK = 30
     FOREGROUND_RED = 31
